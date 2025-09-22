@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula BFD - Funcionalidades</title>
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            transition: background-color 0.5s ease;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5em 0;
+        }
+        .secao-acao {
+            background-color: white;
+            padding: 25px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        button, .botao-link {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        button:hover, .botao-link:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        #form-cadastro {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        #form-cadastro input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .botoes-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .botoes-cor button {
+            margin: 5px;
+        }
+        #cor-azul { background-color: #007bff; }
+        #cor-verde { background-color: #28a745; }
+        #cor-vermelho { background-color: #dc3545; }
+        #cor-azul:hover { background-color: #0069d9; }
+        #cor-verde:hover { background-color: #218838; }
+        #cor-vermelho:hover { background-color: #c82333; }
+        #imagem-container {
+            margin-top: 20px;
+        }
+        #imagem-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #texto-formatado {
+            font-size: 1.2em;
+            margin: 15px 0;
+        }
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aula BFD</h1>
+    </header>
+
+    <section class="acoes-site">
+        <div class="secao-acao">
+            <h3>Cadastre-se e receba novidades!</h3>
+            <form id="form-cadastro">
+                <input type="text" id="nome-cadastro" placeholder="Seu nome" required>
+                <input type="email" id="email-cadastro" placeholder="Seu melhor e-mail" required>
+                <div class="botoes-form">
+                    <button type="button" id="preencher-dados">Preencher</button>
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </form>
+            <p id="mensagem-cadastro"></p>
+        </div>
+
+        <div class="secao-acao">
+            <h3>Acesse o Google</h3>
+            <a href="https://www.google.com" target="_blank" class="botao-link">Ir para o Google</a>
+        </div>
+        
+        <div class="secao-acao">
+            <h3>Mude a cor de fundo</h3>
+            <div class="botoes-cor">
+                <button id="cor-azul" class="botao-cor">Azul</button>
+                <button id="cor-verde" class="botao-cor">Verde</button>
+                <button id="cor-vermelho" class="botao-cor">Vermelho</button>
+            </div>
+        </div>
+
+        <div class="secao-acao">
+            <h3>Insira uma imagem</h3>
+            <button id="mostrar-imagem">Mostrar Imagem</button>
+            <div id="imagem-container"></div>
+        </div>
+
+        <div class="secao-acao">
+            <h3>Formate o texto</h3>
+            <p id="texto-formatado">Texto simples para ser formatado.</p>
+            <button id="formatar-texto">Formatar Texto</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Aula BFD. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Lógica JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Formulário de Cadastro e Botão de Preenchimento Automático
+            const formCadastro = document.getElementById('form-cadastro');
+            const nomeInput = document.getElementById('nome-cadastro');
+            const emailInput = document.getElementById('email-cadastro');
+            const mensagemCadastro = document.getElementById('mensagem-cadastro');
+            const botaoPreencher = document.getElementById('preencher-dados');
+
+            formCadastro.addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                const nome = nomeInput.value;
+                const email = emailInput.value;
+                if (nome && email) {
+                    mensagemCadastro.innerText = `Obrigado, ${nome}! O e-mail "${email}" foi cadastrado com sucesso.`;
+                    nomeInput.value = '';
+                    emailInput.value = '';
+                } else {
+                    mensagemCadastro.innerText = 'Por favor, preencha todos os campos.';
+                }
+            });
+
+            botaoPreencher.addEventListener('click', () => {
+                const nomeFicticio = "João da Silva";
+                const emailFicticio = "joao.silva@exemplo.com";
+                nomeInput.value = nomeFicticio;
+                emailInput.value = emailFicticio;
+                mensagemCadastro.innerText = 'Campos preenchidos automaticamente.';
+            });
+
+            // 2. Botões para Mudar a Cor de Fundo
+            const corpoPagina = document.body;
+            const botoesCor = document.querySelectorAll('.botao-cor');
+
+            botoesCor.forEach(botao => {
+                botao.addEventListener('click', () => {
+                    let novaCor;
+                    switch(botao.id) {
+                        case 'cor-azul':
+                            novaCor = '#007bff';
+                            break;
+                        case 'cor-verde':
+                            novaCor = '#28a745';
+                            break;
+                        case 'cor-vermelho':
+                            novaCor = '#dc3545';
+                            break;
+                    }
+                    corpoPagina.style.backgroundColor = novaCor;
+                });
+            });
+
+            // 3. Botão para Inserir uma Imagem
+            const botaoMostrarImagem = document.getElementById('mostrar-imagem');
+            const imagemContainer = document.getElementById('imagem-container');
+            const urlImagem = 'https://picsum.photos/400/300';
+
+            botaoMostrarImagem.addEventListener('click', () => {
+                if (imagemContainer.querySelector('img')) {
+                    alert('A imagem já está na tela!');
+                    return;
+                }
+                const novaImagem = document.createElement('img');
+                novaImagem.src = urlImagem;
+                novaImagem.alt = 'Imagem gerada aleatoriamente';
+                imagemContainer.appendChild(novaImagem);
+            });
+
+            // 4. Botão para Negrito e Itálico
+            const botaoFormatarTexto = document.getElementById('formatar-texto');
+            const textoFormatado = document.getElementById('texto-formatado');
+
+            botaoFormatarTexto.addEventListener('click', () => {
+                textoFormatado.style.fontWeight = 'bold';
+                textoFormatado.style.fontStyle = 'italic';
+                textoFormatado.innerText = "Texto agora em Negrito e Itálico!";
+            });
+        });
+    </script>
+</body>
+</html>
